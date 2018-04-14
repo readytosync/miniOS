@@ -122,23 +122,46 @@ void init_proc() {
     x=size_of_file("process.txt");
     
     if(x!=0) {
+        int count=0;
         string STRING;
         ifstream infile;
         infile.open ("process.txt");
         while(!infile.eof())
         {
+            count++;
             getline(infile,STRING);
             
         }
         infile.close();
-        cout<<"\nLoading previous working path form file...\n ";
         cout<<STRING<<endl;
-        cwd=STRING;
+        int proc[count];
+        for(int i=0;i<count;i++) {
+            proc[i]=STRING.at(i);
+            
+            
+        }
+        int total=0;
+        for(int i=0;i<count-1;i++) {
+            cout<<proc[i]<<endl;
+            total=total+proc[i];
+            
+        }
+        if(total==0) {
+            cout<<endl<<"no processes in memory."<<endl;
+            
+        }
+        
+        
         
     }
     else {
-        cwd = get_pwd();
-        cout<<cwd<<endl;
+        cout<<endl<<"no processes file found\nCreating a new one..."<<endl;
+        ofstream file;
+        file.open("process.txt");
+        file<<"00000";
+          cout<<endl<<"File creation done..."<<endl;
+        file.close();
+        
     }
     
     
@@ -234,12 +257,7 @@ int main(){
                     
                 }
             
-                
-                
-                
-                
-                
-                
+            
             }
             
             else {
@@ -286,8 +304,9 @@ int main(){
         
         if(strcmp(str.c_str(),"proc")==0) {
            
-            
-            
+            init_proc();
+        
+    
             
             
         }
